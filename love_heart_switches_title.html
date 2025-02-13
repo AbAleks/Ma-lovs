@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебя</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 36px;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .switch-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .switch {
+            width: 60px;
+            height: 30px;
+            background-color: gray;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .switch.active {
+            background-color: #ff4081;
+        }
+        .toggle {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: left 0.3s;
+        }
+        .switch.active .toggle {
+            left: 30px;
+        }
+        .heart-box {
+            display: none;
+            font-size: 24px;
+            color: #ff4081;
+            padding: 20px;
+            border: 5px solid #ff4081;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.5s;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Солнышко 🔆🫶</h1>
+    <div class="container">
+        <div class="switch-container">
+            <div class="switch" onclick="toggleMessage(0)"><div class="toggle"></div></div>
+            <span>Счастья</span>
+        </div>
+        <div class="switch-container">
+            <div class="switch" onclick="toggleMessage(1)"><div class="toggle"></div></div>
+            <span>Радости</span>
+        </div>
+        <div class="switch-container">
+            <div class="switch" onclick="toggleMessage(2)"><div class="toggle"></div></div>
+            <span>Любви</span>
+        </div>
+        <div class="switch-container">
+            <div class="switch" onclick="toggleMessage(3)"><div class="toggle"></div></div>
+            <span>Исполнения желаний</span>
+        </div>
+        <div class="switch-container">
+            <div class="switch" onclick="toggleMessage(4)"><div class="toggle"></div></div>
+            <span>Тепла</span>
+        </div>
+        <div id="heartBox" class="heart-box"></div>
+    </div>
+
+    <script>
+        const messages = [
+            "Желаю тебе бесконечного счастья! 💖",
+            "Пусть каждый день приносит тебе радость! 😊",
+            "Ты достойна самой искренней любви! ❤️",
+            "Пусть все твои мечты сбудутся! ✨",
+            "Пусть в твоей жизни всегда будет тепло и уют! 🔥"
+        ];
+        let activeIndex = -1;
+
+        function toggleMessage(index) {
+            const switches = document.querySelectorAll('.switch');
+            const heartBox = document.getElementById('heartBox');
+
+            if (activeIndex === index) {
+                switches[index].classList.remove('active');
+                heartBox.style.opacity = "0";
+                setTimeout(() => {
+                    heartBox.style.display = "none";
+                }, 500);
+                activeIndex = -1;
+            } else {
+                switches.forEach(s => s.classList.remove('active'));
+                switches[index].classList.add('active');
+
+                heartBox.textContent = messages[index];
+                heartBox.style.display = "flex";
+                setTimeout(() => {
+                    heartBox.style.opacity = "1";
+                }, 100);
+
+                activeIndex = index;
+            }
+        }
+    </script>
+</body>
+</html>
